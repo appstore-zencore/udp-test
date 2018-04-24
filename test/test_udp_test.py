@@ -16,8 +16,5 @@ class TestUdpTest(unittest.TestCase):
 
     def test02(self):
         remote = ("127.0.0.1", 5005)
-        if sys.version.startswith("2"):
-            message = r"测试数据"
-        else:
-            message = "测试数据".encode("utf-8")
+        message = "测试数据".encode("utf-8")
         show_info(message, remote, "Get a message from")
