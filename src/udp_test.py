@@ -1,10 +1,24 @@
+import sys
 import socket
 import click
+
+
+def show_info(message, remote, prefix):
+    if not sys.version.startswith("2"):
+        message = message.decode("utf-8")
+    info = "{prefix} {remote_ip} : {remote_port} ==> {message}".format(
+        prefix=prefix,
+        remote_ip=remote[0],
+        remote_port=remote[1],
+        message=message,
+        )
+    click.echo(info)
 
 
 @click.group()
 def test():
     pass
+
 
 @test.command()
 @click.option("-p", "--port", type=int, default=5005)
@@ -12,17 +26,10 @@ def server(port):
     sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
     sock.bind(('0.0.0.0', port))
     while True:
-        try:
-            message, remote = sock.recvfrom(1024*64)
-        except KeyboardInterrupt:
-            break
-        info = "Get a message from {remote_ip} : {remote_port} ==> {message}".format(
-            remote_ip=remote[0],
-            remote_port=remote[1],
-            message=message.decode("utf-8"),
-            )
-        print(info)
+        message, remote = sock.recvfrom(1024*64)
+        show_info(message, remote, "Get a message from")
         sock.sendto(message, remote)
+
 
 @test.command()
 @click.option("-h", "--host", default="127.0.0.1")
@@ -36,12 +43,8 @@ def client(host, port, local_port):
         line = input("Send message: ")
         sock.sendto(line.encode("utf-8"), (host, port))
         message, remote = sock.recvfrom(1024*64)
-        info = "Received reply from {remote_ip} : {remote_port} ==> {message}".format(
-            remote_ip=remote[0],
-            remote_port=remote[1],
-            message=message.decode("utf-8"),
-            )        
-        print(info)
+        show_info(message, remote, "Received reply from")
+
 
 
 if __name__ == "__main__":

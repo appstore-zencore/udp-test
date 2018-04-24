@@ -11,3 +11,6 @@ install:
 script:
     - udp-test --help
     - udp-test.py --help
+    - cd test
+    - nosetests
+    
