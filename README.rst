@@ -70,4 +70,11 @@ This command wills start a server listen port 1234 on all interfaces.
 
     E:\code\udp-test>udp-test client -h 123.123.123.123 -p 1234
 
-This command will start a connect and send message to server 123.123.123.123:1234.
+This command will start a client that will send message to server 123.123.123.123:1234 via a random local port.
+
+::
+
+    E:\code\udp-test>udp-test client -h 123.123.123.123 -p 1234 -l 5678
+
+This command will start a client that will send message to server 123.123.123.123:1234 via the given local port 5678.
+
