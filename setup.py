@@ -33,6 +33,7 @@ setup(
     requires=requires,
     install_requires=requires,
     packages=find_packages(".", exclude=["test"]),
+    py_modules=["udp_test"],
     entry_points={
         "console_scripts": [
             "udp-test = udp_test:test",
