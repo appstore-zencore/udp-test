@@ -14,7 +14,7 @@ requires = [
 
 setup(
     name="udp-test",
-    version="0.1.0",
+    version="0.1.1",
     description="A simple udp server and client for network testing.",
     long_description=long_description,
     url="https://github.com/appstore-zencore/udp-test",
@@ -32,13 +32,10 @@ setup(
     keywords=["udp-test"],
     requires=requires,
     install_requires=requires,
-    packages=find_packages("src"),
-    package_dir={"": "src"},
-    py_modules=["udp_test"],
+    packages=find_packages(".", exclude=["test"]),
     entry_points={
         "console_scripts": [
             "udp-test = udp_test:test",
-            "udp-test.py =  udp_test:test",
             ]
     },
 )
