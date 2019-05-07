@@ -2,6 +2,7 @@ import sys
 import socket
 import click
 
+VERSION = "0.1.1"
 
 def show_info(message, remote, prefix):
     if not sys.version.startswith("2"):
